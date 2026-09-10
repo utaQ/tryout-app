@@ -11,9 +11,12 @@ npm start
 
 Then open **http://localhost:3000** in a browser.
 
-The database file (`db/tryouts.db`) is created automatically on first run — and this download already comes pre-loaded with sample test data (see below) so you can click around immediately.
+The database file (`db/tryouts.db`) is created automatically on first run, empty. To load it with sample test data so you can click around immediately:
+```bash
+npm run seed
+```
 
-To reset and reload the sample data at any point:
+To reset and reload the sample data at any point, just run the same command again:
 ```bash
 npm run seed
 ```
@@ -63,6 +66,18 @@ Scores are entered by tapping buttons in increments of 5. Recommendation is one 
 - Auth is intentionally simple (plaintext password / PIN match) — fine for a private local deployment on trusted devices at tryouts, but should be hardened (hashed passwords, real sessions) before exposing it on the open internet.
 - Data lives in a single SQLite file, so back it up (`db/tryouts.db`) after tryouts if you want to keep records.
 - To run this on tablets at the gym, you'd host it on a laptop on the same WiFi and have devices browse to that laptop's local IP (e.g. `http://192.168.1.x:3000`) instead of `localhost`.
+
+## Deploying (Render)
+
+This app stores everything in a single SQLite file, so the one thing that matters in production is making sure that file lives on **persistent disk**, not inside the app's code checkout (which Render wipes and recreates from git on every deploy).
+
+1. In the Render dashboard, open the service → **Disks** tab → attach a disk if you haven't already (any size is fine — the db file is tiny) and note its **mount path** (e.g. `/var/data`).
+2. Open the **Environment** tab and add:
+   - `DB_DIR` = the exact same mount path you set in step 1 (e.g. `/var/data`)
+3. Deploy (or redeploy). On startup the app logs the path it's using, e.g. `Using database at /var/data/tryouts.db` — check the logs to confirm it's pointing at the disk, not `.../db/tryouts.db`.
+4. The disk starts empty, so the app boots with just the default admin login (`admin` / `admin123`, seeded automatically — change it, see above). If you want the sample data too, open a shell on the Render service (Shell tab) and run `npm run seed` once.
+
+Without `DB_DIR` set, the app falls back to `db/tryouts.db` inside the checkout, which is fine for local dev but means all data is lost on every deploy — that's the behavior this section fixes.
 
 ## Project structure
 

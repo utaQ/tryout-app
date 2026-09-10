@@ -2,8 +2,16 @@ const path = require('path');
 const fs = require('fs');
 const Database = require('better-sqlite3');
 
-const DB_PATH = path.join(__dirname, 'tryouts.db');
+// On Render (or any host with an attached persistent disk), set DB_DIR to the
+// disk's mount path (e.g. /var/data) so the database survives redeploys.
+// Without it, the db lives inside the app folder, which is wiped and
+// recreated from git on every deploy. Locally this defaults to db/ as before.
+const DB_DIR = process.env.DB_DIR || __dirname;
+fs.mkdirSync(DB_DIR, { recursive: true });
+
+const DB_PATH = path.join(DB_DIR, 'tryouts.db');
 const isNew = !fs.existsSync(DB_PATH);
+console.log(`Using database at ${DB_PATH}${isNew ? ' (new)' : ''}`);
 
 const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');

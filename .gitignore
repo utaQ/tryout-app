@@ -1,0 +1,11 @@
+node_modules/
+
+# SQLite database + WAL/SHM files — these hold real tryout data and,
+# once DB_DIR points at a persistent disk, live outside the repo entirely.
+# Keep them out of git so a deploy never overwrites live data with a stale
+# committed copy.
+db/tryouts.db
+db/tryouts.db-shm
+db/tryouts.db-wal
+
+.env
