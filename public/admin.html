@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Tryout Evaluations</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginScreen" class="center-screen">
+  <div class="card" style="max-width:360px; width:100%;">
+    <h2>Admin Sign In</h2>
+    <div id="loginError"></div>
+    <label>Username</label>
+    <input type="text" id="loginUsername" value="admin">
+    <label>Password</label>
+    <input type="text" id="loginPassword" value="admin123">
+    <button class="btn" style="width:100%; margin-top:16px;" onclick="doLogin()">Sign In</button>
+    <p class="muted" style="margin-top:12px;">Default: admin / admin123 — change this in the database for real use.</p>
+  </div>
+</div>
+
+<div id="appScreen" style="display:none;">
+  <div class="topbar">
+    <h1>🏀 Admin — Tryout Evaluations</h1>
+    <div class="row">
+      <span class="who" id="sessionPicker"></span>
+      <a href="index.html">Home</a>
+      <button class="link" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-tab="setup" onclick="showTab('setup')">Setup</button>
+      <button class="tab" data-tab="uniforms" onclick="showTab('uniforms')">Uniforms</button>
+      <button class="tab" data-tab="checkin" onclick="showTab('checkin')">Check-In</button>
+      <button class="tab" data-tab="coaches" onclick="showTab('coaches')">Coaches</button>
+      <button class="tab" data-tab="reports" onclick="showTab('reports')">Reports</button>
+    </div>
+
+    <div id="tab-setup" class="tab-panel"></div>
+    <div id="tab-uniforms" class="tab-panel" style="display:none;"></div>
+    <div id="tab-checkin" class="tab-panel" style="display:none;"></div>
+    <div id="tab-coaches" class="tab-panel" style="display:none;"></div>
+    <div id="tab-reports" class="tab-panel" style="display:none;"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coach — Tryout Evaluations</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginScreen" class="center-screen">
+  <div class="card" style="max-width:320px; width:100%; text-align:center;">
+    <h2>Coach Sign In</h2>
+    <p class="muted">Enter your 4-digit PIN</p>
+    <div class="pin-display" id="pinDisplay"></div>
+    <div id="pinError"></div>
+    <div class="pin-pad">
+      <button onclick="pinPress('1')">1</button>
+      <button onclick="pinPress('2')">2</button>
+      <button onclick="pinPress('3')">3</button>
+      <button onclick="pinPress('4')">4</button>
+      <button onclick="pinPress('5')">5</button>
+      <button onclick="pinPress('6')">6</button>
+      <button onclick="pinPress('7')">7</button>
+      <button onclick="pinPress('8')">8</button>
+      <button onclick="pinPress('9')">9</button>
+      <button onclick="pinClear()">Clear</button>
+      <button onclick="pinPress('0')">0</button>
+      <button onclick="pinBackspace()">⌫</button>
+    </div>
+  </div>
+</div>
+
+<div id="appScreen" style="display:none;">
+  <div class="topbar">
+    <h1>🏀 Coach — Evaluations</h1>
+    <div class="row">
+      <span class="who" id="coachName"></span>
+      <a href="index.html">Home</a>
+      <button class="link" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="container" id="mainContainer"></div>
+</div>
+
+<script src="app.js"></script>
+<script src="coach.js"></script>
+</body>
+</html>
